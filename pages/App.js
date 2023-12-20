@@ -39,7 +39,7 @@ function App(){
                 <section className={styles.containerMiddle}>
                     <header className={styles.header}>
                     <h1>K.I.N.K. ID</h1>
-                    <h2>KOAla's</h2>
+                    <h2>KOAlas</h2>
                     </header>
                     {!koalaClicked && (
                         <section className={styles.koalas}>
