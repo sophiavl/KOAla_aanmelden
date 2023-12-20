@@ -17,5 +17,11 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.0.4"
+  },
+  "vercel":{
+    "builds": [{"src": "next.config.js", "use": "@vercel/next"}],
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
