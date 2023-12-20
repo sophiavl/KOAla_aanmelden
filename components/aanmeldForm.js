@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 import styles from '../styles/aanmeldForm.module.scss';
 
 const AanmeldForm = () => {
@@ -21,14 +23,13 @@ const AanmeldForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('',{
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.nextTick.GOOGLE_PRIVATE_KEY,
-      });
+      const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
       await doc.useServiceAccountAuth({
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY,
       });
-
       await doc.loadInfo();
+
       const sheet = doc.sheetsByIndex[0];
 
       // Append data to the Google Sheet
