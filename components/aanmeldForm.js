@@ -76,7 +76,7 @@ const AanmeldForm = () => {
             type='text'
             id='fname'
             name='voornaam'
-            value={formData.voornaam}
+            value={form.voornaam}
             onChange={handleChange}
             required
             className={styles.input}
@@ -86,7 +86,7 @@ const AanmeldForm = () => {
             type='text'
             id='lname'
             name='achternaam'
-            value={formData.achternaam}
+            value={form.achternaam}
             onChange={handleChange}
             required
             className={styles.input}
@@ -96,7 +96,7 @@ const AanmeldForm = () => {
             type='text'
             id='phone'
             name='telefoon'
-            value={formData.telefoon}
+            value={form.telefoon}
             onChange={handleChange}
             required
             className={styles.input}
@@ -106,7 +106,7 @@ const AanmeldForm = () => {
             type='text'
             id='email'
             name='email'
-            value={formData.email}
+            value={form.email}
             onChange={handleChange}
             required
             className={styles.input}
