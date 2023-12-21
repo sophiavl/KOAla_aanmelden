@@ -1,64 +1,83 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import styles from '../styles/aanmeldForm.module.scss';
 
+const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
+const SHEET_ID = process.env.GOOGLE_SHEET_ID;
+const CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;
+const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
+
+
 const AanmeldForm = () => {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     voornaam: '',
     achternaam: '',
     telefoon: '',
     email: '',
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
+  const appendSpreadsheet = async (row) => {
+    try{
       await doc.useServiceAccountAuth({
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY,
+        client_email: CLIENT_EMAIL,
+        priavte_key: PRIVATE_KEY.replace(/\\n/g, '\n'),
       });
+
       await doc.loadInfo();
 
-      const sheet = doc.sheetsByIndex[0];
-
-      // Append data to the Google Sheet
-      await sheet.addRow({
-        Voornaam: formData.voornaam,
-        Achternaam: formData.achternaam,
-        Telefoon: formData.telefoon,
-        Email: formData.email,
+      const sheet = doc.sheetsById[SHEET_ID];
+      await sheet.addRow(row);
+      setForm({
+        voornaam: '',
+        achternaam: '',
+        telefoon: '',
+        email: '',
       });
-
-      console.log('Form data submitted successfully');
-      // Optionally, show a success message or navigate to a "thank you" page
-    } catch (error) {
-      console.error('Error submitting form data:', error.message);
-      // Handle error as needed
+    } catch (e) {
+      console.error('Error: ', e);
     }
+  }
+
+  const submitForm = (e) => {
+    e.preventDefault();
+
+    if(
+      form.voornaam !== '' &&
+      form.achternaam !== '' &&
+      form.telefoon !== '' &&
+      form.email !== ''
+    ) {
+      const newRow = {
+        voornaam: form.voornaam,
+        achternaam: form.achternaam,
+        telefoonnummer: form.telefoon,
+        email: form.email,
+      };
+  
+      appendSpreadsheet(newRow);
+    }
+  }
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
   
 
   return (
     <section className={styles.aanmelden}>
-      <form className={styles.form} onSubmit={handleFormSubmit}>
+      <form className={styles.form} onSubmit={submitForm}>
           <label className={styles.label} htmlFor='fname'>Voornaam:</label>
           <input
             type='text'
             id='fname'
             name='voornaam'
             value={formData.voornaam}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
             className={styles.input}
           />
@@ -68,7 +87,7 @@ const AanmeldForm = () => {
             id='lname'
             name='achternaam'
             value={formData.achternaam}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
             className={styles.input}
           />
@@ -78,7 +97,7 @@ const AanmeldForm = () => {
             id='phone'
             name='telefoon'
             value={formData.telefoon}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
             className={styles.input}
           />
@@ -88,7 +107,7 @@ const AanmeldForm = () => {
             id='email'
             name='email'
             value={formData.email}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
             className={styles.input}
           />
