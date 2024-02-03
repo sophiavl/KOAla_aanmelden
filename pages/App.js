@@ -12,7 +12,7 @@ function App(){
     const [aanmeldClicked, setAanmeldClicked] = useState(false);
 
     const koalaDescriptions = {
-        'BBQ: Alaskadag':'Op 18 oktober wordt Alaska dag gevierd. We vieren dan dat Alaska werd overgenomen van het toenmalige tsarenrijk Rusland. Dit alles heeft zowel niks te maken de activiteit, als met K.I.N.K. ID, maar het was gewoon ludieker om het zo te noemen. Kortom kom gezellig met ons BBQ`en!',
+        'BBQ: Alaskadag':'Op 18 oktober wordt Alaska dag gevierd. We vieren dan dat Alaska werd overgenomen van het toenmalige tsarenrijk Rusland. Dit alles heeft zowel niks te maken met de activiteit, als met K.I.N.K. ID, maar het was gewoon ludieker om het zo te noemen. Kortom kom gezellig met ons BBQ`en!',
         'Poolen': 'Kom met ons poolen en borrelen! K.I.N.K. ID is vaak te vinden in de Poolcafés van Leiden. Of we er ook echt daadwerkelijk goed in zijn… dat is te betwijfelen. Het is in ieder geval altijd vermakelijk!',
         'Kampvuuravond': 'Gitaar, kampvuur, marshmallows en gluhwein. De perfecte ingrediënten voor een knusse avond. Kom gezellig kletsen en kampvuurliedjes zingen! En uh… Anyway, here’s Wonderwall',
         'Spebibo':'Ben je het zat om elke keer weer Klok en Lager weg te tikken? Vind je het tijd voor bier met kwaliteit? Kom dan naar de Speciaal Bier borrel! Geniet van een aantal heerlijke speciaalbiertjes, om vervolgens toch weer over te gaan naar goedkoop bier.',
